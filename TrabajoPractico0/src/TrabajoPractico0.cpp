@@ -12,7 +12,7 @@
 
 using namespace std;
 
-int main() {
+int main(int argv, string** argc) {
 
 	cout << "Declaraciones.. " << endl;
 

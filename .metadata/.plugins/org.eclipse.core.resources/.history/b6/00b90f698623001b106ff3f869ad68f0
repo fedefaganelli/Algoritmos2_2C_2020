@@ -1,0 +1,25 @@
+/*
+ * Header.h
+ *
+ *  Created on: Nov 10, 2020
+ *      Author: fedef
+ */
+
+#ifndef HEADER_H_
+#define HEADER_H_
+
+#include <string>
+
+class Header
+{
+
+private:
+	 string Prev_block;
+	 string Txns_hash;
+	 int Bits;
+	 int Nonce;
+public:
+	 Header(string,string,int,int);
+};
+
+#endif /* HEADER_H_ */

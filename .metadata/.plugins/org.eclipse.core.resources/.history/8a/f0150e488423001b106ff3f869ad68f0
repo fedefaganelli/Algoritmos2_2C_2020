@@ -1,0 +1,16 @@
+/*
+ * Header.cpp
+ *
+ *  Created on: Nov 10, 2020
+ *      Author: fedef
+ */
+
+Header::Header(string prev_block, string txns_hash, int bits, int nonce)
+{
+	  Prev_block = prev_block;
+	  Txns_hash = txns_hash;
+	  Bits = bits;
+	  Nonce = nonce;
+}
+
+

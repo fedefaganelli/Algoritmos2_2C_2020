@@ -1,0 +1,15 @@
+/*
+ * Body.cpp
+ *
+ *  Created on: Nov 10, 2020
+ *      Author: fedef
+ */
+#include "Body.h"
+
+Body::Body(int txn_count)
+{
+	Txn_count = txn_count;
+}
+
+
+

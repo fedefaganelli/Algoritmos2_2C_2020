@@ -1,0 +1,18 @@
+/*
+ * Block.cpp
+ *
+ *  Created on: Nov 10, 2020
+ *      Author: fedef
+ */
+
+#include "Block.h"
+
+Block::Block() {
+	// TODO Auto-generated constructor stub
+
+}
+
+Block::~Block() {
+	// TODO Auto-generated destructor stub
+}
+

@@ -1,0 +1,32 @@
+//============================================================================
+// Name        : TrabajoPractico0.cpp
+// Author      : 
+// Version     :
+// Copyright   : Your copyright notice
+// Description : Hello World in C++, Ansi-style
+//============================================================================
+
+#include <iostream>
+#include "Header.h"
+
+
+using namespace std;
+
+int main() {
+
+	int opc;
+
+	cout << "Enter number of bits: " << flush;
+	cin >> opc;
+
+	Header h("str1","str2",1,2);
+	h.Bits = opc;
+
+	cout << "Header h.Txns_hash: " << h.Txns_hash << endl;
+	cout << "Header h.Prev_block: " << h.Prev_block << endl;
+	cout << "Header h.Bits: " << h.Bits << endl;
+	cout << "Header h.Nonce: " << h.Nonce << endl;
+
+
+	return 0;
+}

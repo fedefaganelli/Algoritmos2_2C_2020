@@ -1,0 +1,24 @@
+/*
+ * Block.h
+ *
+ *  Created on: Nov 10, 2020
+ *      Author: fedef
+ */
+
+#ifndef BLOCK_H_
+#define BLOCK_H_
+
+#include "Header.h"
+#include "Body.h"
+
+class Block
+{
+
+private:
+	Header Header;
+	Body Body;
+public:
+	Block(Header,Body);
+};
+
+#endif /* BLOCK_H_ */

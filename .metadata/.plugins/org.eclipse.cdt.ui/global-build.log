@@ -1,7 +1,13 @@
-18:24:04 **** Incremental Build of configuration Debug for project TrabajoPractico0 ****
+00:59:59 **** Incremental Build of configuration Debug for project TrabajoPractico0 ****
 Info: Internal Builder is used for build
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Input.o" "..\\src\\Input.cpp" 
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Transaction.o" "..\\src\\Transaction.cpp" 
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Body.o" "..\\src\\Body.cpp" 
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\cmdline.o" "..\\src\\cmdline.cc" 
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Block.o" "..\\src\\Block.cpp" 
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Output.o" "..\\src\\Output.cpp" 
 g++ -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\TrabajoPractico0.o" "..\\src\\TrabajoPractico0.cpp" 
-..\src\TrabajoPractico0.cpp:15:5: warning: second argument of 'int main(int, std::__cxx11::string**)' should be 'char **' [-Wmain]
- int main(int argv, string** argc) {
-     ^~~~
-g++ -o TrabajoPractico0.exe "src\\Block.o" "src\\Body.o" "src\\Header.o" "src\\TrabajoPractico0.o" 
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\sha256.o" "..\\src\\sha256.cpp" 
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Header.o" "..\\src\\Header.cpp" 
+g++ -o TrabajoPractico0.exe "src\\Block.o" "src\\Body.o" "src\\Header.o" "src\\Input.o" "src\\Output.o" "src\\TrabajoPractico0.o" "src\\Transaction.o" "src\\cmdline.o" "src\\sha256.o" 
+Info: Nothing to build for TrabajoPractico0

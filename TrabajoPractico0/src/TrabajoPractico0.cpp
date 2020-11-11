@@ -7,32 +7,36 @@
 //============================================================================
 
 #include <iostream>
+#include <fstream>
+#include <sstream>
+#include <cstdlib>
+#include "sha256.h"
+#include "cmdline.h"
 #include "Block.h"
 
+#define MSG_ERR_OPEN_FILE "Error al abrir el archivo "
 
 using namespace std;
 
-int main(int argv, string** argc) {
+int main(int argc, char* argv[])
+{
+	/*for (int i = 0; i < argc; i++)
+	{
+		std::cout << "Argumento " << i+1 << ": " << argv[i] << endl;
+	}*/
 
-	cout << "Declaraciones.. " << endl;
+	/*for (auto const& v : block.body.Transactions)
+	{
+		std::cout << "n_tx_in: " << v.n_tx_in << "\n";
+		std::cout << "n_tx_out: " << v.n_tx_out << "\n";
+	}*/
 
-
-	Header h1("str1","str2",1,5);
-	Body body1(45);
-
-	Block block1;
-
-	block1.body = body1;
-	block1.header = h1;
-
-
-	cout << "Valor de body.Txn_count " << block1.body.Txn_count << endl;
-	cout << "Valor de header.Prev_block " << block1.header.Prev_block << endl;
-
-
-
-
-
+	string input = "Sarasa.";
+	string output = sha256(input);
+	cout << "input: " << input << endl;
+	cout << "output: " << output << endl;
 
 	return 0;
+
 }
+

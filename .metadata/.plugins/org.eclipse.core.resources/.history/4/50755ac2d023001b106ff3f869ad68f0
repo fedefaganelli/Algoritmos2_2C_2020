@@ -1,4 +1,10 @@
-#pragma once
+/*
+ * Block.h
+ *
+ *  Created on: Nov 10, 2020
+ *      Author: fedef
+ */
+
 #ifndef BLOCK_H_
 #define BLOCK_H_
 
@@ -18,4 +24,3 @@ public:
 };
 
 #endif /* BLOCK_H_ */
-

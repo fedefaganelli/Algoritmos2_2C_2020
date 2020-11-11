@@ -1,9 +1,3 @@
-/*
- * Header.cpp
- *
- *  Created on: Nov 10, 2020
- *      Author: fedef
- */
 #include "Header.h"
 
 Header::Header()
@@ -16,17 +10,15 @@ Header::Header()
 
 Header::Header(std::string prev_block, std::string txns_hash, int bits, int nonce)
 {
-	  Prev_block = prev_block;
-	  Txns_hash = txns_hash;
-	  Bits = bits;
-	  if(nonce < 0)
-	  {
-		  Nonce = 0;
-	  }
-	  else
-	  {
-		  Nonce = nonce;
-	  }
+	Prev_block = prev_block;
+	Txns_hash = txns_hash;
+	Bits = bits;
+	if (nonce < 0)
+	{
+		Nonce = 0;
+	}
+	else
+	{
+		Nonce = nonce;
+	}
 }
-
-

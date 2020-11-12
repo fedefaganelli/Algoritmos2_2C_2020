@@ -10,6 +10,7 @@
 #include "Block.h"
 #include <list>
 #include <vector>
+#include<ctime>
 
 #define MSG_ERR_OPEN_FILE "Error al abrir el archivo "
 #define NUMBER_INPUT_ARGUMENTS 3
@@ -98,7 +99,8 @@ int main(int argc, char* argv[])
 	header.Prev_block = PRE_BLOCK_INIT;
 	header.Txns_hash = get_transactions_hash(body.Transactions);
 	header.Bits = dif;
-	header.Nonce = 12238; //(rand() % MAX_RAND) + 1;
+	srand(time(0));
+	header.Nonce = rand();
 
 	string hHash = get_header_hash(header);
 
@@ -107,10 +109,16 @@ int main(int argc, char* argv[])
 	block.header = header;
 	block.body = body;
 
-	if (block.verify_dificulty(hHash, dif))
-		cout << "Dificultad satisfecha!" << endl << "Header Hash: " << endl << hHash << endl;
-	else
-		cout << "Dificultad no satisfecha" << endl << "Header Hash:" << endl << hHash << endl;
+	bool satisfiedDif = false;
+	do
+	{
+		header.Nonce = rand();
+		hHash = get_header_hash(header);
+		satisfiedDif = block.verify_dificulty(hHash, dif);
+	}while(!satisfiedDif);
+
+	cout << "Dificultad satisfecha!" << endl << "Header Hash: " << endl << hHash << endl << endl;
+
 	//imprimo el block
 	if (output.empty())
 	{

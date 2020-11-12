@@ -22,3 +22,13 @@ Header::Header(std::string prev_block, std::string txns_hash, int bits, int nonc
 		Nonce = nonce;
 	}
 }
+
+std::string& Header::getHeader()
+{
+	std::string header;
+	std::string bitsStr = std::to_string(Bits);
+	std::string nonceStr = std::to_string(Nonce);
+	header = Prev_block + '\n' + Txns_hash + '\n' + bitsStr + '\n' + nonceStr + '\n';
+	return header;
+}
+

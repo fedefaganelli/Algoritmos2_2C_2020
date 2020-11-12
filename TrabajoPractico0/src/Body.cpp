@@ -3,7 +3,7 @@
 Body::Body()
 {
 	Txn_count = 0;
-	std::list<Transaction> Transactions;
+	lista<Transaction> Transactions;
 }
 
 Body::Body(int txn_count)

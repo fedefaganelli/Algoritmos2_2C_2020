@@ -3,6 +3,6 @@
 Input::Input()
 {
 	Tx_id = "";
-	Idx = "";
+	Idx = 0;
 	Addr = "";
 }

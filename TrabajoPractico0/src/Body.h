@@ -12,7 +12,7 @@ public:
 	Body(int); //revisar
 
 	int Txn_count;
-	std::list<Transaction> Transactions;
+	lista<Transaction> Transactions;
 };
 
 #endif /* BODY_H_ */

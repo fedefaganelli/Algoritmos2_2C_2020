@@ -4,7 +4,7 @@
 
 #include "Input.h"
 #include "Output.h"
-#include <list>
+#include "lista.h"
 
 class Transaction
 {
@@ -13,9 +13,9 @@ public:
 	//Transaction(int); //custom constructor
 
 	int N_tx_in;
-	std::list<Input> Inputs;
+	lista<Input> Inputs;
 	int N_tx_out;
-	std::list<Output> Outputs;
+	lista<Output> Outputs;
 };
 
 #endif // !TRANSACTION_H_

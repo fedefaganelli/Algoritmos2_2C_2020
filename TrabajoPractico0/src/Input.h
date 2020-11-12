@@ -8,7 +8,7 @@ public:
 	Input();
 
 	std::string Tx_id;
-	std::string Idx;
+	int Idx;
 	std::string Addr;
 };
 

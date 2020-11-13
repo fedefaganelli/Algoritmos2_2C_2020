@@ -13,6 +13,7 @@
 #include<ctime>
 
 #define MSG_ERR_OPEN_FILE "Error al abrir el archivo "
+#define MSG_ERR_DIFFICULTY_MISSING "Error: No se encontró el parámetro --difficulty (-d)"
 #define NUMBER_INPUT_ARGUMENTS 3
 #define NUMBER_OUTPUT_ARGUMENTS 2
 #define PRE_BLOCK_INIT "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
@@ -33,6 +34,7 @@ static void print_to_stdout(Transaction&);
 static void print_to_stdout(Block& b);
 int print_to_file(Transaction&, const string);
 int print_to_file(Block& b, const string fileName);
+lista<Transaction> read_transactions_stdin(int totalTransactions);
 lista<Transaction> read_transactions_file(const string fileName);
 string print_transaction(Transaction& t);
 string get_transactions_hash(lista<Transaction>);
@@ -72,10 +74,21 @@ int main(int argc, char* argv[])
 
 	//
 	Body body;
-
+	lista<Transaction> transactions;
 	if (input.empty())
 	{
-		cout << "Handle empty input" << endl;
+		cout << "Ingrese cantidad de transacciones: " << flush;
+		cin >> input;
+
+		if (!is_numeric(input))
+		{
+				cout << "Error: " << "La cantidad de transacciones ingresada no es un numero: " << input << endl;
+				return 1;
+		}
+		int totalTransacciones = stoi(input);
+
+		transactions = read_transactions_stdin(totalTransacciones);
+
 	}
 	else
 	{
@@ -86,13 +99,16 @@ int main(int argc, char* argv[])
 			return 1;
 		}
 		//crear transtaction a partir de archivo de entrada .txt
-		lista<Transaction> transactions = read_transactions_file(input);
-
-		body.Transactions = transactions;
-		body.Txn_count = transactions.Tamano();
-
+		transactions = read_transactions_file(input);
 
 	}
+	if(transactions.Tamano() == 0)
+	{
+		cout << "Error: " << "No se pudieron leer las transacciones" << endl;
+		return 1;
+	}
+	body.Transactions = transactions;
+	body.Txn_count = transactions.Tamano();
 
 	//creo el header
 	Header header;
@@ -142,7 +158,7 @@ int main(int argc, char* argv[])
 static void opt_input(string const& arg)
 {
 	if (arg == "-") {
-		cin >> input;
+		input.clear();
 	}
 	else {
 		std::stringstream in(arg);
@@ -172,7 +188,9 @@ static void opt_output(string const& arg)
 static void opt_difficulty(string const& arg)
 {
 	if (arg == "-") {
-		cin >> difficulty;
+		//cin >> difficulty;
+		cerr << MSG_ERR_DIFFICULTY_MISSING << endl;
+		exit(1);
 	}
 	else {
 		std::stringstream in(arg);
@@ -334,6 +352,55 @@ int print_to_file(Transaction& t, const string fileName)
 	file.close();
 	return 0;
 }
+
+
+lista<Transaction> read_transactions_stdin(int totalTransactions)
+{
+	string line;
+	lista<Transaction> transactions;
+
+	for(int i = 0; i < totalTransactions; i++)
+	{
+		cout << "Ingrese cantidad de inputs para transaccion " << i+1 << ": "<<flush;
+		cin >> line;
+		if (!is_numeric(line))
+		{
+			cout << "Error: " << "Cantidad total de inputs no es un numero: " << line << endl;
+			return lista<Transaction>();
+		}
+		int totalInputs = stoi(line);
+
+		Transaction t;
+		t.N_tx_in = totalInputs;
+
+		int status = get_inputs(totalInputs, t);
+		if (status != 0)
+			return lista<Transaction>();
+
+		cout << "Ingrese cantidad de outputs para transaccion " << i+1 << ": "<<flush;
+		cin >> line;
+		if (!is_numeric(line))
+		{
+			cout << "Error: " << "Cantidad total de outputs no es un numero: " << line << endl;
+			return lista<Transaction>();
+		}
+		int totalOutputs = stoi(line);
+
+		t.N_tx_out = totalOutputs;
+
+		status = get_outputs(totalOutputs, t);
+		if (status != 0)
+			return lista<Transaction>();
+
+		//agregar la transaction al body
+		transactions.enqueue(t);
+
+	}
+
+	return transactions;
+}
+
+
 
 lista<Transaction> read_transactions_file(const string fileName)
 {

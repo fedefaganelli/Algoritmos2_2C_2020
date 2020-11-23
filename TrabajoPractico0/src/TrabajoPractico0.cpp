@@ -13,7 +13,7 @@
 #include<ctime>
 
 #define MSG_ERR_OPEN_FILE "Error al abrir el archivo "
-#define MSG_ERR_DIFFICULTY_MISSING "Error: No se encontró el parámetro --difficulty (-d)"
+#define MSG_ERR_DIFFICULTY_MISSING "Error: No se encontrï¿½ el parï¿½metro --difficulty (-d)"
 #define NUMBER_INPUT_ARGUMENTS 3
 #define NUMBER_OUTPUT_ARGUMENTS 2
 #define PRE_BLOCK_INIT "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
@@ -35,7 +35,7 @@ static void print_to_stdout(Block& b);
 int print_to_file(Transaction&, const string);
 int print_to_file(Block& b, const string fileName);
 lista<Transaction> read_transactions_stdin(int totalTransactions);
-lista<Transaction> read_transactions_file(const string fileName);
+lista<Transaction> read_transactions_file(string& fileName);
 string print_transaction(Transaction& t);
 string get_transactions_hash(lista<Transaction>);
 string get_header_hash(Header&);
@@ -55,9 +55,9 @@ static option_t options[] = {
 int main(int argc, char* argv[])
 {
 	//recibo el CLA
-	//parseo
 	cmdline cmdl(options);
 
+	//parseo
 	cmdl.parse(argc, argv);
 
 	if (difficulty.empty())
@@ -72,7 +72,6 @@ int main(int argc, char* argv[])
 	}
 	int dif = stoi(difficulty);
 
-	//
 	Body body;
 	lista<Transaction> transactions;
 	if (input.empty())
@@ -99,6 +98,7 @@ int main(int argc, char* argv[])
 			return 1;
 		}
 		//crear transtaction a partir de archivo de entrada .txt
+
 		transactions = read_transactions_file(input);
 
 	}
@@ -402,15 +402,23 @@ lista<Transaction> read_transactions_stdin(int totalTransactions)
 
 
 
-lista<Transaction> read_transactions_file(const string fileName)
+lista<Transaction> read_transactions_file(string& fileName)
 {
-	ifstream inFile(fileName);
+
+	ifstream inFile;
+	inFile.open(fileName.c_str());
+	if(!inFile.is_open()) {
+		perror("Error abriendo archivo input");
+		exit(EXIT_FAILURE);
+	}
 	string line;
 	lista<Transaction> transactions;
 
 	while(true)
 	{
 		getline(inFile, line);
+		if (inFile.eof()) break;
+
 		if (!is_numeric(line))
 		{
 			cout << "Error: " << "Cantidad total de inputs no es un numero: " << line << endl;
@@ -423,7 +431,6 @@ lista<Transaction> read_transactions_file(const string fileName)
 
 		for (int j = 0; j < totalInputs; j++)
 		{
-			/////
 			Input in;
 
 			getline(inFile, line);
@@ -493,8 +500,6 @@ lista<Transaction> read_transactions_file(const string fileName)
 
 		//agregar la transaction al body
 		transactions.enqueue(t);
-
-		if (inFile.eof()) break;
 
 	}
 

@@ -408,7 +408,8 @@ lista<Transaction> read_transactions_file(string& fileName)
 	ifstream inFile;
 	inFile.open(fileName.c_str());
 	if(!inFile.is_open()) {
-		perror("Error abriendo archivo input");
+		string errorMessage = "Error abriendo archivo " + fileName;
+		perror(errorMessage.c_str());
 		exit(EXIT_FAILURE);
 	}
 	string line;

@@ -10,20 +10,19 @@ Block::Block()
 bool Block::verify_dificulty(string hash, size_t dificulty/*campo bits*/)
 {
 	size_t i, d = 0;
-	for (i = 0; hash[i] == '0'; i++)
-		d = d + 4;
 
-	if (hash[i] == '1')
-		d = d + 3;
+		if(dificulty == 0)
+		    return true;
 
-	if (hash[i] == '2' || hash[i] == '3')
-		d = d + 2;
+		for(i = 0; d < dificulty; i++)
+		{
+		    if(hash[i] != '0')
+		        return false;
 
-	if (hash[i] == '4' || hash[i] == '5' || hash[i] == '6' || hash[i] == '7')
-		d = d + 1;
+		    d = d + 4;
+		}
 
-	/*otro caso d = d + 0*/
-	return d >= dificulty ? true : false;
+		return true;
 }
 
 //std::string& Header::txns_hash(std::string& txns, int txn_count) /*  generar campo hash*/

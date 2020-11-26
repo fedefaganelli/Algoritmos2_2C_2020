@@ -10,7 +10,8 @@ class Header
 public:
 	Header();
 	Header(std::string, std::string, int, int);
-	std::string& getHeader();
+	//std::string& getHeader();
+	std::string getHeader();
 	
 
 	std::string Prev_block;

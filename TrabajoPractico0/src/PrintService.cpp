@@ -49,7 +49,9 @@ void print_to_stdout(Block& b)
 {
 	cout << b.header.Prev_block << endl << b.header.Txns_hash << endl << b.header.Bits << endl << b.header.Nonce << endl;
 	cout << b.body.Txn_count << endl;
-
+	
+	if(b.body.Transactions.Tamano() == 0)
+		return;
 	lista<Transaction>::iterador it;
 	for (it = b.body.Transactions.primero(); it != b.body.Transactions.ultimo(); it.avanzar()) {
 		print_to_stdout(it.dato());
@@ -67,6 +69,10 @@ int print_to_file(Block& b, const string fileName)
 	file << b.body.Txn_count << endl;
 
 	file.close();
+
+	if(b.body.Transactions.Tamano() == 0)
+		return 0;
+
 	lista<Transaction>::iterador it;
 	for (it = b.body.Transactions.primero(); it != b.body.Transactions.ultimo(); it.avanzar()) {
 		print_to_file(it.dato(), fileName);

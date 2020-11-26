@@ -87,18 +87,25 @@ int main(int argc, char* argv[])
 		transactions = read_transactions_file(input);
 
 	}
-	if(transactions.Tamano() == 0)
+
+	/*if(transactions.Tamano() == 0)
 	{
 		cout << "Error: " << "No se pudieron leer las transacciones" << endl;
 		return 1;
-	}
+	}*/
+
 	body.Transactions = transactions;
 	body.Txn_count = transactions.Tamano();
 
 	//creo el header
 	Header header;
 	header.Prev_block = PRE_BLOCK_INIT;
-	header.Txns_hash = get_transactions_hash(body.Transactions);
+
+	if(transactions.Tamano() == 0)
+		header.Txns_hash = sha256(sha256(""));
+	else
+		header.Txns_hash = get_transactions_hash(body.Transactions);
+
 	header.Bits = dif;
 	srand(time(0));
 	header.Nonce = rand();
@@ -118,8 +125,8 @@ int main(int argc, char* argv[])
 		satisfiedDif = block.verify_dificulty(hHash, dif);
 	}while(!satisfiedDif);
 
-	cout << "Dificultad satisfecha!" << endl << "Header Hash: " << endl << hHash << endl << endl;
-
+	//cout << "Dificultad satisfecha!" << endl << "Header Hash: " << endl << hHash << endl << endl;
+	cout << "Header Hash: " << endl << hHash << endl << endl;
 	//imprimo el block
 	if (output.empty())
 	{

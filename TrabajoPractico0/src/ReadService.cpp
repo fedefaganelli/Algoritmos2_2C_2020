@@ -115,6 +115,8 @@ lista<Transaction> read_transactions_stdin(int totalTransactions)
 {
 	string line;
 	lista<Transaction> transactions;
+	if(totalTransactions == 0)
+		return transactions;
 
 	for(int i = 0; i < totalTransactions; i++)
 	{
@@ -123,7 +125,8 @@ lista<Transaction> read_transactions_stdin(int totalTransactions)
 		if (!is_numeric(line))
 		{
 			cout << "Error: " << "Cantidad total de inputs no es un numero: " << line << endl;
-			return lista<Transaction>();
+			exit(1);
+			//return lista<Transaction>();
 		}
 		int totalInputs = stoi(line);
 
@@ -132,14 +135,16 @@ lista<Transaction> read_transactions_stdin(int totalTransactions)
 
 		int status = get_inputs(totalInputs, t);
 		if (status != 0)
-			return lista<Transaction>();
+			exit(1);
+			//return lista<Transaction>();
 
 		cout << "Ingrese cantidad de outputs para transaccion " << i+1 << ": "<<flush;
 		cin >> line;
 		if (!is_numeric(line))
 		{
 			cout << "Error: " << "Cantidad total de outputs no es un numero: " << line << endl;
-			return lista<Transaction>();
+			exit(1);
+			//return lista<Transaction>();
 		}
 		int totalOutputs = stoi(line);
 
@@ -147,7 +152,8 @@ lista<Transaction> read_transactions_stdin(int totalTransactions)
 
 		status = get_outputs(totalOutputs, t);
 		if (status != 0)
-			return lista<Transaction>();
+			exit(1);
+			//return lista<Transaction>();
 
 		//agregar la transaction al body
 		transactions.enqueue(t);

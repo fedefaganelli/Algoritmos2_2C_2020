@@ -1,0 +1,110 @@
+// Tp0Cpp.cpp : This file contains the 'main' function. Program execution begins and ends there.
+//
+
+#include <iostream>
+#include <sstream>
+#include <cstdlib>
+#include<ctime>
+
+#include "cmdline.h"
+#include "sha256.h"
+#include "lista.h"
+#include "Block.h"
+
+#define MSG_ERR_OPEN_FILE "Error al abrir el archivo "
+#define MSG_ERR_DIFFICULTY_MISSING "Error: No se encontro el parametro --difficulty (-d)"
+#define PRE_BLOCK_INIT "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+#define MAX_RAND 100000
+
+using namespace std;
+
+static void opt_input(string const& arg);
+static void opt_output(string const& arg);
+
+lista<Block> process_user_input(void);
+
+static string input;
+static string output;
+static option_t options[] = {
+	{1, "i", "input", "-", opt_input, OPT_DEFAULT},
+	{1, "o", "output", "-", opt_output, OPT_DEFAULT},
+	{0, }
+};
+
+
+int main(int argc, char* argv[])
+{
+	//recibo el CLA
+	cmdline cmdl(options);
+
+	//parseo
+	cmdl.parse(argc, argv);
+
+
+	if (input.empty())
+	{
+		lista<Block> bloques = process_user_input();
+
+	}
+	else
+	{
+		//si viene, checkeo que sea un archivo .txt (va a venir la transaccion ya hecha)
+		cout << "Aca vendria el archivo .txt con los comandos " << endl;
+	}
+
+	srand(time(0));
+	//header.Nonce = rand();
+
+
+	return 0;
+}
+
+
+
+static void opt_input(string const& arg)
+{
+	if (arg == "-") {
+		input.clear();
+	}
+	else {
+		std::stringstream in(arg);
+		if (!in.good()) {
+			cerr << MSG_ERR_OPEN_FILE << arg << endl;
+			exit(1);
+		}
+		in >> input;
+	}
+}
+
+static void opt_output(string const& arg)
+{
+	if (arg == "-") {
+		output.clear();
+	}
+	else {
+		std::stringstream in(arg);
+		if (!in.good()) {
+			cerr << MSG_ERR_OPEN_FILE << arg << endl;
+			exit(1);
+		}
+		in >> output;
+	}
+}
+
+lista<Block> process_user_input(void)
+{
+	string line = "";
+
+	while(line != "quit")
+	{
+		cin >> line;
+
+		cout << "pusiste: " << line << endl;
+	}
+
+	return lista<Block>();
+
+}
+
+
+
